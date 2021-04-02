@@ -9,7 +9,7 @@ public class OfferHandler {
 
     Map<Product, Double> productQuantities = new HashMap<>();
 
-    List<Discount> handleOffers(Map<Product, Offer> offers, SupermarketCatalog catalog) {
+    List<Discount> getDiscounts(Map<Product, Offer> offers, SupermarketCatalog catalog) {
         Optional<Discount> discount;
         List<Discount> discountList = new ArrayList<>();
         for (Product p: productQuantities.keySet()) {
