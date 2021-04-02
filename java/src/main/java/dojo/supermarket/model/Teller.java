@@ -28,11 +28,7 @@ public class Teller {
             receipt.addProduct(p, quantity, unitPrice, price);
         }
 
-        List<Discount> discountList;
-        discountList = theCart.offerHandler().getDiscounts(this.offers, this.catalog);
-        for (Discount discount: discountList) {
-            receipt.addDiscount(discount);
-        }
+        theCart.offerHandler().getDiscounts(this.offers, this.catalog).forEach(receipt::addDiscount);
 
         return receipt;
     }
