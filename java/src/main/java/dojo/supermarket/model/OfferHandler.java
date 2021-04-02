@@ -7,7 +7,7 @@ public class OfferHandler {
         this.productQuantities = productQuantities;
     }
 
-    Map<Product, Double> productQuantities = new HashMap<>();
+    Map<Product, Double> productQuantities;
 
     List<Discount> getDiscounts(Map<Product, Offer> offers, SupermarketCatalog catalog) {
         Optional<Discount> discount;
