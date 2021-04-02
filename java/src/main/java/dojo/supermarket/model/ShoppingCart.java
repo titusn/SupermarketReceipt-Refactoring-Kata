@@ -20,7 +20,6 @@ public class ShoppingCart {
         return productQuantities;
     }
 
-
     public void addItemQuantity(Product product, double quantity) {
         items.add(new ProductQuantity(product, quantity));
         if (productQuantities.containsKey(product)) {
@@ -30,12 +29,14 @@ public class ShoppingCart {
         }
     }
 
-    void handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
+    List<Discount> handleOffers(Map<Product, Offer> offers, SupermarketCatalog catalog) {
         Optional<Discount> discount;
-        for (Product p: productQuantities().keySet()) {
+        List<Discount> discountList = new ArrayList<>();
+        for (Product p: productQuantities.keySet()) {
             discount = checkOffersForProduct(offers, catalog, p);
-            discount.ifPresent(receipt::addDiscount);
+            discount.ifPresent(discountList::add);
         }
+        return discountList;
     }
 
     private Optional<Discount> checkOffersForProduct(Map<Product, Offer> offers, SupermarketCatalog catalog, Product p) {
@@ -79,4 +80,6 @@ public class ShoppingCart {
         }
         return discount;
     }
+
+
 }

@@ -20,6 +20,7 @@ public class Teller {
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = theCart.getItems();
+        List<Discount> discountList;
         for (ProductQuantity pq: productQuantities) {
             Product p = pq.getProduct();
             double quantity = pq.getQuantity();
@@ -27,7 +28,12 @@ public class Teller {
             double price = quantity * unitPrice;
             receipt.addProduct(p, quantity, unitPrice, price);
         }
-        theCart.handleOffers(receipt, this.offers, this.catalog);
+
+        discountList = theCart.handleOffers(this.offers, this.catalog);
+
+        for (Discount discount: discountList) {
+            receipt.addDiscount(discount);
+        }
 
         return receipt;
     }
