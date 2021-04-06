@@ -44,8 +44,8 @@ public class OfferHandler {
         }
         if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
             divisor = 3;
-            int numberOfXs = quantityAsInt / divisor;
-            double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+            int multiplier = 2;
+            double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor, multiplier);
             discount = Optional.of(new Discount(p, offer.offerType.getDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
@@ -60,8 +60,12 @@ public class OfferHandler {
     }
 
     private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int quantityAsInt, int divisor) {
+        return calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor, 1);
+    }
+
+    private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int quantityAsInt, int divisor, int multiplier) {
         int intDivision = quantityAsInt / divisor;
-        double pricePerUnit = offer.argument * intDivision;
+        double pricePerUnit = offer.argument * intDivision * multiplier;
         double totalAboveDiscount = (quantityAsInt % divisor) * unitPrice;
         double total = pricePerUnit + totalAboveDiscount;
         return unitPrice * quantity - total;
