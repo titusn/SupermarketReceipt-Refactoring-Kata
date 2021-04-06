@@ -20,7 +20,7 @@ public enum SpecialOfferType implements Description{
 
         @Override
         String generateDescription(double argument) {
-            throw new NotImplementedException();
+            return argument + getDescription();
         }
     },
     TWO_FOR_AMOUNT("2 for ") {
