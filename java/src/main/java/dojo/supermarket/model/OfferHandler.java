@@ -34,7 +34,7 @@ public class OfferHandler {
         double unitPrice = catalog.getUnitPrice(p);
         int quantityAsInt = (int) quantity;
         int divisor;
-        if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && quantityAsInt >= 2) {
+        if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && offer.offerType.applies(quantityAsInt)) {
             divisor = 2;
             double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
             discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountAmount));
