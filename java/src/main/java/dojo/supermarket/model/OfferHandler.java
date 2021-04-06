@@ -45,9 +45,6 @@ public class OfferHandler {
             }
 
         }
-        if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT) {
-            divisor = 5;
-        }
         int numberOfXs = quantityAsInt / divisor;
         if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
             double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
@@ -57,6 +54,7 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, offer.argument + offer.offerType.getDescription(), -quantity * unitPrice * offer.argument / 100.0));
         }
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
+            divisor = 5;
             double discountN = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
             discount = Optional.of(new Discount(p, divisor + offer.offerType.getDescription() + offer.argument, -discountN));
         }
