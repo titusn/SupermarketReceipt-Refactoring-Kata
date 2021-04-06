@@ -62,8 +62,8 @@ public class OfferHandler {
     private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int quantityAsInt, int divisor) {
         int intDivision = quantityAsInt / divisor;
         double pricePerUnit = offer.argument * intDivision;
-        double theTotal = (quantityAsInt % divisor) * unitPrice;
-        double total = pricePerUnit + theTotal;
+        double totalAboveDiscount = (quantityAsInt % divisor) * unitPrice;
+        double total = pricePerUnit + totalAboveDiscount;
         return unitPrice * quantity - total;
     }
 
