@@ -11,6 +11,11 @@ public enum SpecialOfferType implements Description{
         String generateDescription(double argument) {
             return getDescription();
         }
+
+        @Override
+        double calculateDiscount(double quantity, double unitPrice, double argument) {
+            throw new NotImplemented();
+        }
     },
     TEN_PERCENT_DISCOUNT("% off") {
         @Override
@@ -21,6 +26,11 @@ public enum SpecialOfferType implements Description{
         @Override
         String generateDescription(double argument) {
             return argument + getDescription();
+        }
+
+        @Override
+        double calculateDiscount(double quantity, double unitPrice, double argument) {
+            throw new NotImplemented();
         }
     },
     TWO_FOR_AMOUNT("2 for ") {
@@ -33,6 +43,11 @@ public enum SpecialOfferType implements Description{
         String generateDescription(double argument) {
             return getDescription() + argument;
         }
+
+        @Override
+        double calculateDiscount(double quantity, double unitPrice, double argument) {
+            return calculateDiscountN(quantity, unitPrice, argument, 2);
+        }
     },
     FIVE_FOR_AMOUNT("5 for ") {
         @Override
@@ -43,6 +58,11 @@ public enum SpecialOfferType implements Description{
         @Override
         String generateDescription(double argument) {
             return getDescription() + argument;
+        }
+
+        @Override
+        double calculateDiscount(double quantity, double unitPrice, double argument) {
+            throw new NotImplemented();
         }
     };
 
@@ -60,4 +80,21 @@ public enum SpecialOfferType implements Description{
     abstract boolean applies(int quantityAsInt);
 
     abstract String generateDescription(double argument);
+
+    abstract double calculateDiscount(double quantity, double unitPrice, double argument);
+
+    private static double calculateDiscountN(double quantity, double unitPrice, double argument, int divisor) {
+        return calculateDiscountN(quantity, unitPrice, argument,  divisor, 1);
+    }
+
+    private static double calculateDiscountN(double quantity, double unitPrice, double argument, int divisor, int multiplier) {
+        int intDivision = (int) quantity / divisor;
+        double pricePerUnit = argument * intDivision * multiplier;
+        double totalAboveDiscount = ((int) quantity % divisor) * unitPrice;
+        double total = pricePerUnit + totalAboveDiscount;
+        return unitPrice * quantity - total;
+    }
+
+    private static class NotImplemented extends RuntimeException {
+    }
 }

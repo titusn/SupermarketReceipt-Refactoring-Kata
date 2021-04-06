@@ -18,4 +18,8 @@ public class Offer {
     public String generateDescription() {
         return offerType.generateDescription(argument);
     }
+
+    public double calculateDiscount(double quantity, double unitPrice) {
+        return offerType.calculateDiscount(quantity, unitPrice, argument);
+    }
 }
