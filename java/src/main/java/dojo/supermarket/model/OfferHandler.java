@@ -32,21 +32,11 @@ public class OfferHandler {
         double quantity = productQuantities.get(p);
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
-        if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && offer.offerType.applies((int) quantity)) {
-            double discountAmount = offer.calculateDiscount(quantity, unitPrice);
-            discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
-        }
-        if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && offer.offerType.applies((int) quantity)) {
-            double discountAmount = offer.calculateDiscount(quantity, unitPrice);
-            discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
-        }
-        if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT && offer.offerType.applies((int) quantity)) {
-            double discountAmount = offer.calculateDiscount(quantity, unitPrice);
-            discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
-        }
-        if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && offer.offerType.applies((int) quantity)) {
-            double discountAmount = offer.calculateDiscount(quantity, unitPrice);
-            discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
+        for (SpecialOfferType currentOfferType: SpecialOfferType.values()) {
+            if (offer.offerType == currentOfferType && offer.offerType.applies((int) quantity)) {
+                double discountAmount = offer.calculateDiscount(quantity, unitPrice);
+                discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
+            }
         }
         return discount;
     }
