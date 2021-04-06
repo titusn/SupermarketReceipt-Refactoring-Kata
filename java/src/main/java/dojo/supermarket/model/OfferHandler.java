@@ -33,7 +33,7 @@ public class OfferHandler {
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
         for (SpecialOfferType currentOfferType: SpecialOfferType.values()) {
-            if (offer.offerType == currentOfferType && offer.offerType.applies((int) quantity)) {
+            if (offer.applies(currentOfferType, quantity)) {
                 double discountAmount = offer.calculateDiscount(quantity, unitPrice);
                 discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
             }
