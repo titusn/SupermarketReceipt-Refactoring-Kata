@@ -41,7 +41,7 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT && offer.offerType.applies((int) quantity)) {
-            double discountAmount = calculateDiscountPercent(quantity, offer, unitPrice);
+            double discountAmount = offer.calculateDiscount(quantity, unitPrice);
             discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && offer.offerType.applies((int) quantity)) {
@@ -50,9 +50,4 @@ public class OfferHandler {
         }
         return discount;
     }
-
-    private double calculateDiscountPercent(double quantity, Offer offer, double unitPrice) {
-        return quantity * unitPrice * offer.argument / 100.0;
-    }
-
 }

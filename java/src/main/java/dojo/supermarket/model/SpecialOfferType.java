@@ -30,7 +30,7 @@ public enum SpecialOfferType implements Description{
 
         @Override
         double calculateDiscount(double quantity, double unitPrice, double argument) {
-            throw new NotImplemented();
+            return calculateDiscountPercent(quantity, unitPrice, argument);
         }
     },
     TWO_FOR_AMOUNT("2 for ") {
@@ -95,6 +95,7 @@ public enum SpecialOfferType implements Description{
         return unitPrice * quantity - total;
     }
 
-    private static class NotImplemented extends RuntimeException {
+    private static double calculateDiscountPercent(double quantity, double unitPrice, double argument) {
+        return quantity * unitPrice * argument / 100.0;
     }
 }
