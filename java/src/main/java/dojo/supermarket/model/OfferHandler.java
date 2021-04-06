@@ -45,7 +45,7 @@ public class OfferHandler {
             double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor, multiplier);
             discount = Optional.of(new Discount(p, offer.offerType.getDescription(), -discountAmount));
         }
-        if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
+        if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT && offer.offerType.applies(quantityAsInt)) {
             double discountAmount = calculateDiscountPercent(quantity, offer, unitPrice);
             discount = Optional.of(new Discount(p, offer.argument + offer.offerType.getDescription(), -discountAmount));
         }
