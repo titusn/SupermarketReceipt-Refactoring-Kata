@@ -15,4 +15,7 @@ public class Offer {
         return this.product;
     }
 
+    public String generateDescription() {
+        return offerType.generateDescription(argument);
+    }
 }
