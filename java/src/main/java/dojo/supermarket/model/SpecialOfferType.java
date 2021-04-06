@@ -34,7 +34,7 @@ public enum SpecialOfferType implements Description{
             return this.getDescription() + argument;
         }
     },
-    FIVE_FOR_AMOUNT(" for ") {
+    FIVE_FOR_AMOUNT("5 for ") {
         @Override
         boolean applies(int quantityAsInt) {
             return quantityAsInt >= 5;
@@ -42,7 +42,7 @@ public enum SpecialOfferType implements Description{
 
         @Override
         String generateDescription(double argument) {
-            throw new NotImplementedException();
+            return getDescription() + argument;
         }
     };
 
@@ -60,7 +60,4 @@ public enum SpecialOfferType implements Description{
     abstract boolean applies(int quantityAsInt);
 
     abstract String generateDescription(double argument);
-
-    private static class NotImplementedException extends RuntimeException {
-    }
 }

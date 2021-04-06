@@ -52,7 +52,7 @@ public class OfferHandler {
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && offer.offerType.applies(quantityAsInt)) {
             divisor = 5;
             double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
-            discount = Optional.of(new Discount(p, divisor + offer.offerType.getDescription() + offer.argument, -discountAmount));
+            discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
         }
         return discount;
     }
