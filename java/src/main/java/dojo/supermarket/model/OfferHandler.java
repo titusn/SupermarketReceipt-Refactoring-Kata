@@ -39,7 +39,7 @@ public class OfferHandler {
             double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
             discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountAmount));
         }
-        if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt >= 3) {
+        if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && offer.offerType.applies(quantityAsInt)) {
             divisor = 3;
             int multiplier = 2;
             double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor, multiplier);
