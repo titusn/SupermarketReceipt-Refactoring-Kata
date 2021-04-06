@@ -9,7 +9,7 @@ public enum SpecialOfferType implements Description{
 
         @Override
         String generateDescription(double argument) {
-            throw new NotImplementedException();
+            return getDescription();
         }
     },
     TEN_PERCENT_DISCOUNT("% off") {
