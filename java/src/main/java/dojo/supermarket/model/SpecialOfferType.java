@@ -62,7 +62,7 @@ public enum SpecialOfferType implements Description{
 
         @Override
         double calculateDiscount(double quantity, double unitPrice, double argument) {
-            throw new NotImplemented();
+            return calculateDiscountN(quantity, unitPrice, argument, 5);
         }
     };
 

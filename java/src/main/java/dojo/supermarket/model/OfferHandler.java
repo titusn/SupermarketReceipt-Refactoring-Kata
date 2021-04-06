@@ -32,7 +32,6 @@ public class OfferHandler {
         double quantity = productQuantities.get(p);
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
-        int divisor;
         if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && offer.offerType.applies((int) quantity)) {
             double discountAmount = offer.calculateDiscount(quantity, unitPrice);
             discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
@@ -46,8 +45,7 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && offer.offerType.applies((int) quantity)) {
-            divisor = 5;
-            double discountAmount = calculateDiscountN(quantity, offer, unitPrice, divisor);
+            double discountAmount = offer.calculateDiscount(quantity, unitPrice);
             discount = Optional.of(new Discount(p, offer.generateDescription(), -discountAmount));
         }
         return discount;
@@ -55,18 +53,6 @@ public class OfferHandler {
 
     private double calculateDiscountPercent(double quantity, Offer offer, double unitPrice) {
         return quantity * unitPrice * offer.argument / 100.0;
-    }
-
-    private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int divisor) {
-        return calculateDiscountN(quantity, offer, unitPrice, divisor, 1);
-    }
-
-    private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int divisor, int multiplier) {
-        int intDivision = (int) quantity / divisor;
-        double pricePerUnit = offer.argument * intDivision * multiplier;
-        double totalAboveDiscount = ((int) quantity % divisor) * unitPrice;
-        double total = pricePerUnit + totalAboveDiscount;
-        return unitPrice * quantity - total;
     }
 
 }
