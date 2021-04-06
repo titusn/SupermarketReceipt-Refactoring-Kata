@@ -49,7 +49,8 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, offer.offerType.getDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
-            discount = Optional.of(new Discount(p, offer.argument + offer.offerType.getDescription(), -quantity * unitPrice * offer.argument / 100.0));
+            double discountAmount = quantity * unitPrice * offer.argument / 100.0;
+            discount = Optional.of(new Discount(p, offer.argument + offer.offerType.getDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
             divisor = 5;
