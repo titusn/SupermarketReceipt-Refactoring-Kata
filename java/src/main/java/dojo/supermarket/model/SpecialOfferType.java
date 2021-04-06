@@ -31,7 +31,7 @@ public enum SpecialOfferType implements Description{
 
         @Override
         String generateDescription(double argument) {
-            return this.getDescription() + argument;
+            return getDescription() + argument;
         }
     },
     FIVE_FOR_AMOUNT("5 for ") {
