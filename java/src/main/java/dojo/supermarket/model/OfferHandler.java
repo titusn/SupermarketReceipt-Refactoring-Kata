@@ -34,13 +34,10 @@ public class OfferHandler {
         double unitPrice = catalog.getUnitPrice(p);
         int quantityAsInt = (int) quantity;
         int divisor;
-        if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT) {
+        if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && quantityAsInt >= 2) {
             divisor = 2;
-            if (quantityAsInt >= 2) {
-                double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
-                discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountAmount));
-            }
-
+            double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
+            discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
             divisor = 3;
@@ -49,7 +46,7 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, offer.offerType.getDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
-            double discountAmount = quantity * unitPrice * offer.argument / 100.0;
+            double discountAmount = calculateDiscountPercent(quantity, offer, unitPrice);
             discount = Optional.of(new Discount(p, offer.argument + offer.offerType.getDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
@@ -58,6 +55,10 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, divisor + offer.offerType.getDescription() + offer.argument, -discountAmount));
         }
         return discount;
+    }
+
+    private double calculateDiscountPercent(double quantity, Offer offer, double unitPrice) {
+        return quantity * unitPrice * offer.argument / 100.0;
     }
 
     private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int quantityAsInt, int divisor) {
