@@ -22,7 +22,7 @@ public enum SpecialOfferType implements Description{
     FIVE_FOR_AMOUNT(" for ") {
         @Override
         boolean applies(int quantityAsInt) {
-            return true;
+            return quantityAsInt >= 5;
         }
     };
 
