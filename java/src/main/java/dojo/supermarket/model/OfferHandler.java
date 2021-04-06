@@ -40,11 +40,7 @@ public class OfferHandler {
         } else if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT) {
             x = 2;
             if (quantityAsInt >= 2) {
-                int intDivision = quantityAsInt / x;
-                double pricePerUnit = offer.argument * intDivision;
-                double theTotal = (quantityAsInt % 2) * unitPrice;
-                double total = pricePerUnit + theTotal;
-                double discountN = unitPrice * quantity - total;
+                double discountN = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, x);
                 discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountN));
             }
 
@@ -65,6 +61,14 @@ public class OfferHandler {
             discount = Optional.of(new Discount(p, x + offer.offerType.getDescription() + offer.argument, -discountTotal));
         }
         return discount;
+    }
+
+    private double calculateDiscountN(double quantity, Offer offer, double unitPrice, int quantityAsInt, int x) {
+        int intDivision = quantityAsInt / x;
+        double pricePerUnit = offer.argument * intDivision;
+        double theTotal = (quantityAsInt % 2) * unitPrice;
+        double total = pricePerUnit + theTotal;
+        return unitPrice * quantity - total;
     }
 
 }
