@@ -37,24 +37,24 @@ public class OfferHandler {
         if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT) {
             divisor = 2;
             if (quantityAsInt >= 2) {
-                double discountN = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
-                discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountN));
+                double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
+                discount = Optional.of(new Discount(p, offer.offerType.getDescription() + offer.argument, -discountAmount));
             }
 
         }
         if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
             divisor = 3;
             int multiplier = 2;
-            double discountN = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor, multiplier);
-            discount = Optional.of(new Discount(p, offer.offerType.getDescription(), -discountN));
+            double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor, multiplier);
+            discount = Optional.of(new Discount(p, offer.offerType.getDescription(), -discountAmount));
         }
         if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
             discount = Optional.of(new Discount(p, offer.argument + offer.offerType.getDescription(), -quantity * unitPrice * offer.argument / 100.0));
         }
         if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
             divisor = 5;
-            double discountN = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
-            discount = Optional.of(new Discount(p, divisor + offer.offerType.getDescription() + offer.argument, -discountN));
+            double discountAmount = calculateDiscountN(quantity, offer, unitPrice, quantityAsInt, divisor);
+            discount = Optional.of(new Discount(p, divisor + offer.offerType.getDescription() + offer.argument, -discountAmount));
         }
         return discount;
     }
