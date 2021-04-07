@@ -23,7 +23,7 @@ public class Offer {
         return offerType.calculateDiscount(quantity, unitPrice, argument);
     }
 
-    public boolean applies(SpecialOfferType offerType, double quantity) {
-        return this.offerType == offerType && this.offerType.applies((int) quantity);
+    public boolean applies(double quantity) {
+        return offerType.applies((int) quantity);
     }
 }
