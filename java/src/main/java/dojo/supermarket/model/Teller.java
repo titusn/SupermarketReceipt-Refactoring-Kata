@@ -28,7 +28,7 @@ public class Teller {
             receipt.addProduct(p, quantity, unitPrice, price);
         }
 
-        theCart.offerHandler().getDiscounts(this.offers, this.catalog).forEach(receipt::addDiscount);
+        theCart.offerHandler().findDiscount(this.offers, this.catalog).forEach(receipt::addDiscount);
 
         return receipt;
     }
