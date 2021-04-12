@@ -79,8 +79,7 @@ public class ShoppingCart {
     }
 
     private double calculateDiscountAmount(double quantity, Offer offer, double unitPrice, int divisor, int multiplier) {
-        int intDivision = getNumberOfTimesOfferApplies((int) quantity, divisor);
-        double pricePerUnit = offer.argument * intDivision * multiplier;
+        double pricePerUnit = offer.argument * getNumberOfTimesOfferApplies((int) quantity, divisor) * multiplier;
         double theTotal = ((int) quantity % divisor) * unitPrice;
         double total = pricePerUnit + theTotal;
         return unitPrice * quantity - total;
