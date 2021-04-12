@@ -65,16 +65,16 @@ public class ShoppingCart {
         }
         if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
             divisor = 3;
-            double discountAmount = quantity * unitPrice - ((getNumberOfTimesOfferApplies(quantityAsInt, divisor) * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+            double discountAmount = quantity * unitPrice - ((getNumberOfTimesOfferApplies(quantityAsInt, divisor) * 2 * unitPrice) + quantityAsInt % divisor * unitPrice);
             return new Discount(p, "3 for 2", -discountAmount);
-        }
-        if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
-            return new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
             divisor = 5;
             double discountTotal = unitPrice * quantity - (offer.argument * getNumberOfTimesOfferApplies(quantityAsInt, divisor) + quantityAsInt % 5 * unitPrice);
             return new Discount(p, divisor + " for " + offer.argument, -discountTotal);
+        }
+        if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
+            return new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
         }
         return null;
     }
