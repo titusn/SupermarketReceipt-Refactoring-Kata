@@ -57,17 +57,14 @@ public class ShoppingCart {
         if (offer.offerType == SpecialOfferType.ThreeForTwo) {
             x = 3;
         }
-        if (offer.offerType == SpecialOfferType.TwoForAmount) {
+        if (offer.offerType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2) {
             x = 2;
-            if (quantityAsInt >= 2) {
-                int intDivision = quantityAsInt / x;
-                double pricePerUnit = offer.argument * intDivision;
-                double theTotal = (quantityAsInt % 2) * unitPrice;
-                double total = pricePerUnit + theTotal;
-                double discountN = unitPrice * quantity - total;
-                return new Discount(p, "2 for " + offer.argument, -discountN);
-            }
-
+            int intDivision = quantityAsInt / x;
+            double pricePerUnit = offer.argument * intDivision;
+            double theTotal = (quantityAsInt % 2) * unitPrice;
+            double total = pricePerUnit + theTotal;
+            double discountN = unitPrice * quantity - total;
+            return new Discount(p, "2 for " + offer.argument, -discountN);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount) {
             x = 5;
