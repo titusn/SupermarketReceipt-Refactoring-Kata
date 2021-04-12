@@ -56,11 +56,7 @@ public class ShoppingCart {
         int divisor;
         if (offer.offerType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2) {
             divisor = 2;
-            int intDivision = getNumberOfTimesOfferApplies(quantityAsInt, divisor);
-            double pricePerUnit = offer.argument * intDivision;
-            double theTotal = (quantityAsInt % divisor) * unitPrice;
-            double total = pricePerUnit + theTotal;
-            double discountAmount = unitPrice * quantity - total;
+            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, quantityAsInt, divisor);
             return new Discount(p, "2 for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt >= 3) {
@@ -77,6 +73,14 @@ public class ShoppingCart {
             return new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
         }
         return null;
+    }
+
+    private double calculateDiscountAmount(double quantity, Offer offer, double unitPrice, int quantityAsInt, int divisor) {
+        int intDivision = getNumberOfTimesOfferApplies(quantityAsInt, divisor);
+        double pricePerUnit = offer.argument * intDivision;
+        double theTotal = (quantityAsInt % divisor) * unitPrice;
+        double total = pricePerUnit + theTotal;
+        return unitPrice * quantity - total;
     }
 
     private int getNumberOfTimesOfferApplies(int quantityAsInt, int divisor) {
