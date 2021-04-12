@@ -52,21 +52,20 @@ public class ShoppingCart {
         double quantity = productQuantities.get(p);
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
-        int quantityAsInt = (int) quantity;
         int divisor;
-        if (offer.offerType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2) {
+        if (offer.offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2) {
             divisor = 2;
-            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, quantityAsInt, divisor);
+            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, divisor);
             return new Discount(p, "2 for " + offer.argument, -discountAmount);
         }
-        if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt >= 3) {
+        if (offer.offerType == SpecialOfferType.ThreeForTwo && (int) quantity >= 3) {
             divisor = 3;
-            double discountAmount = quantity * unitPrice - ((getNumberOfTimesOfferApplies(quantityAsInt, divisor) * 2 * unitPrice) + quantityAsInt % divisor * unitPrice);
+            double discountAmount = quantity * unitPrice - ((getNumberOfTimesOfferApplies((int) quantity, divisor) * 2 * unitPrice) + (int) quantity % divisor * unitPrice);
             return new Discount(p, "3 for 2", -discountAmount);
         }
-        if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
+        if (offer.offerType == SpecialOfferType.FiveForAmount && (int) quantity >= 5) {
             divisor = 5;
-            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, quantityAsInt, divisor);
+            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, divisor);
             return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
@@ -75,10 +74,10 @@ public class ShoppingCart {
         return null;
     }
 
-    private double calculateDiscountAmount(double quantity, Offer offer, double unitPrice, int quantityAsInt, int divisor) {
-        int intDivision = getNumberOfTimesOfferApplies(quantityAsInt, divisor);
+    private double calculateDiscountAmount(double quantity, Offer offer, double unitPrice, int divisor) {
+        int intDivision = getNumberOfTimesOfferApplies((int) quantity, divisor);
         double pricePerUnit = offer.argument * intDivision;
-        double theTotal = (quantityAsInt % divisor) * unitPrice;
+        double theTotal = ((int) quantity % divisor) * unitPrice;
         double total = pricePerUnit + theTotal;
         return unitPrice * quantity - total;
     }
