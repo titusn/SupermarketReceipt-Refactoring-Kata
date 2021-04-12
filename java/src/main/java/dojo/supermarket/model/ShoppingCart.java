@@ -59,7 +59,7 @@ public class ShoppingCart {
         }
         if (offer.offerType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2) {
             divisor = 2;
-            int intDivision = quantityAsInt / divisor;
+            int intDivision = getNumberOfTimesOfferApplies(quantityAsInt, divisor);
             double pricePerUnit = offer.argument * intDivision;
             double theTotal = (quantityAsInt % 2) * unitPrice;
             double total = pricePerUnit + theTotal;
@@ -69,18 +69,21 @@ public class ShoppingCart {
         if (offer.offerType == SpecialOfferType.FiveForAmount) {
             divisor = 5;
         }
-        int numberOfXs = quantityAsInt / divisor;
         if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
-            double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+            double discountAmount = quantity * unitPrice - ((getNumberOfTimesOfferApplies(quantityAsInt, divisor) * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
             return new Discount(p, "3 for 2", -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
             return new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
-            double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+            double discountTotal = unitPrice * quantity - (offer.argument * getNumberOfTimesOfferApplies(quantityAsInt, divisor) + quantityAsInt % 5 * unitPrice);
             return new Discount(p, divisor + " for " + offer.argument, -discountTotal);
         }
         return null;
+    }
+
+    private int getNumberOfTimesOfferApplies(int quantityAsInt, int divisor) {
+        return quantityAsInt / divisor;
     }
 }
