@@ -55,17 +55,17 @@ public class ShoppingCart {
         int divisor;
         if (offer.offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2) {
             divisor = 2;
-            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, divisor);
+            double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor);
             return new Discount(p, "2 for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.ThreeForTwo && (int) quantity >= 3) {
             divisor = 3;
-            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, divisor, 2);
+            double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor, 2);
             return new Discount(p, "3 for 2", -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && (int) quantity >= 5) {
             divisor = 5;
-            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, divisor);
+            double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor);
             return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
@@ -78,10 +78,10 @@ public class ShoppingCart {
         return calculateDiscountAmount(quantity, offer, unitPrice, divisor, 1);
     }
 
-    private double calculateDiscountAmount(double quantity, Offer offer, double unitPrice, int divisor, int multiplier) {
-        double subtotalDiscounted = offer.argument * getNumberOfTimesOfferApplies((int) quantity, divisor) * multiplier;
-        double theTotal = ((int) quantity % divisor) * unitPrice;
-        double total = subtotalDiscounted + theTotal;
+    private double calculateDiscountAmount(double quantity, double offerPrice, double unitPrice, int divisor, int multiplier) {
+        double subtotalDiscounted = offerPrice * getNumberOfTimesOfferApplies((int) quantity, divisor) * multiplier;
+        double subtotalAboveDiscount = ((int) quantity % divisor) * unitPrice;
+        double total = subtotalDiscounted + subtotalAboveDiscount;
         return unitPrice * quantity - total;
     }
 
