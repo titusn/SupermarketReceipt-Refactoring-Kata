@@ -58,7 +58,7 @@ public class ShoppingCart {
             divisor = 2;
             int intDivision = getNumberOfTimesOfferApplies(quantityAsInt, divisor);
             double pricePerUnit = offer.argument * intDivision;
-            double theTotal = (quantityAsInt % 2) * unitPrice;
+            double theTotal = (quantityAsInt % divisor) * unitPrice;
             double total = pricePerUnit + theTotal;
             double discountN = unitPrice * quantity - total;
             return new Discount(p, "2 for " + offer.argument, -discountN);
@@ -70,7 +70,7 @@ public class ShoppingCart {
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
             divisor = 5;
-            double discountTotal = unitPrice * quantity - (offer.argument * getNumberOfTimesOfferApplies(quantityAsInt, divisor) + quantityAsInt % 5 * unitPrice);
+            double discountTotal = unitPrice * quantity - (offer.argument * getNumberOfTimesOfferApplies(quantityAsInt, divisor) + quantityAsInt % divisor * unitPrice);
             return new Discount(p, divisor + " for " + offer.argument, -discountTotal);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
