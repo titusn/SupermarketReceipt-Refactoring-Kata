@@ -66,7 +66,7 @@ public class ShoppingCart {
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
             divisor = 5;
-            double discountAmount = unitPrice * quantity - (offer.argument * getNumberOfTimesOfferApplies(quantityAsInt, divisor) + quantityAsInt % divisor * unitPrice);
+            double discountAmount = calculateDiscountAmount(quantity, offer, unitPrice, quantityAsInt, divisor);
             return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
