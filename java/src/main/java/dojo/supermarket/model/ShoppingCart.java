@@ -53,7 +53,7 @@ public class ShoppingCart {
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
         int quantityAsInt = (int) quantity;
-        int divisor = 1;
+        int divisor;
         if (offer.offerType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2) {
             divisor = 2;
             int intDivision = getNumberOfTimesOfferApplies(quantityAsInt, divisor);
@@ -62,9 +62,6 @@ public class ShoppingCart {
             double total = pricePerUnit + theTotal;
             double discountN = unitPrice * quantity - total;
             return new Discount(p, "2 for " + offer.argument, -discountN);
-        }
-        if (offer.offerType == SpecialOfferType.FiveForAmount) {
-            divisor = 5;
         }
         if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
             divisor = 3;
@@ -75,6 +72,7 @@ public class ShoppingCart {
             return new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
+            divisor = 5;
             double discountTotal = unitPrice * quantity - (offer.argument * getNumberOfTimesOfferApplies(quantityAsInt, divisor) + quantityAsInt % 5 * unitPrice);
             return new Discount(p, divisor + " for " + offer.argument, -discountTotal);
         }
