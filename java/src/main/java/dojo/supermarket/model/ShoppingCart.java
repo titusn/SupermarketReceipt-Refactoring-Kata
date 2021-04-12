@@ -63,7 +63,7 @@ public class ShoppingCart {
             double discountN = unitPrice * quantity - total;
             return new Discount(p, "2 for " + offer.argument, -discountN);
         }
-        if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
+        if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt >= 3) {
             divisor = 3;
             double discountAmount = quantity * unitPrice - ((getNumberOfTimesOfferApplies(quantityAsInt, divisor) * 2 * unitPrice) + quantityAsInt % divisor * unitPrice);
             return new Discount(p, "3 for 2", -discountAmount);
