@@ -56,8 +56,8 @@ public class ShoppingCart {
         int x = 1;
         if (offer.offerType == SpecialOfferType.ThreeForTwo) {
             x = 3;
-
-        } else if (offer.offerType == SpecialOfferType.TwoForAmount) {
+        }
+        if (offer.offerType == SpecialOfferType.TwoForAmount) {
             x = 2;
             if (quantityAsInt >= 2) {
                 int intDivision = quantityAsInt / x;
