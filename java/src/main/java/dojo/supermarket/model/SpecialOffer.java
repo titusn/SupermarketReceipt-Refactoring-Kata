@@ -1,6 +1,6 @@
 package dojo.supermarket.model;
 
-public interface SpecialOffer {
-    String generateDescription(Double amount);
-    Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice);
+abstract class SpecialOffer {
+    abstract String generateDescription(Double amount);
+    abstract Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice);
 }

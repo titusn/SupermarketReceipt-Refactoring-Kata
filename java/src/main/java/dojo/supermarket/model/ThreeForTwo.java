@@ -1,6 +1,6 @@
 package dojo.supermarket.model;
 
-public class ThreeForTwo implements SpecialOffer {
+public class ThreeForTwo extends SpecialOffer {
 
     @Override
     public String generateDescription(Double amount) {

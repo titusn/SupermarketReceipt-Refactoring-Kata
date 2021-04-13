@@ -1,6 +1,6 @@
 package dojo.supermarket.model;
 
-public class TwoForAmount implements SpecialOffer{
+public class TwoForAmount extends SpecialOffer{
 
     @Override
       public String generateDescription(Double amount) {
@@ -11,4 +11,5 @@ public class TwoForAmount implements SpecialOffer{
     public Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
         return null;
     }
+
 }
