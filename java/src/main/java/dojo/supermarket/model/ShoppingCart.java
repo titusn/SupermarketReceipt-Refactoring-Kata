@@ -69,13 +69,18 @@ public class ShoppingCart {
             return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
-            return new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
+            double discountAmount = calculateDiscountAmountFromPercentage(quantity, offer.argument, unitPrice);
+            return new Discount(p, offer.argument + "% off", -discountAmount);
         }
         return null;
     }
 
-    private double calculateDiscountAmount(double quantity, Offer offer, double unitPrice, int divisor) {
-        return calculateDiscountAmount(quantity, offer, unitPrice, divisor, 1);
+    private double calculateDiscountAmountFromPercentage(double quantity, double percentage, double unitPrice) {
+        return quantity * unitPrice * percentage / 100.0;
+    }
+
+    private double calculateDiscountAmount(double quantity, double offerPrice, double unitPrice, int divisor) {
+        return calculateDiscountAmount(quantity, offerPrice, unitPrice, divisor, 1);
     }
 
     private double calculateDiscountAmount(double quantity, double offerPrice, double unitPrice, int divisor, int multiplier) {
