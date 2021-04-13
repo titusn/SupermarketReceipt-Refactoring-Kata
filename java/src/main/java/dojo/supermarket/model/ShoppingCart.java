@@ -55,8 +55,9 @@ public class ShoppingCart {
         int divisor;
         if (offer.offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2) {
             divisor = 2;
+            SpecialOffer specialOffer = new TwoForAmount();
             double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor);
-            return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
+            return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.ThreeForTwo && (int) quantity >= 3) {
             divisor = 3;
