@@ -56,12 +56,12 @@ public class ShoppingCart {
         if (offer.offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2) {
             divisor = 2;
             double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor);
-            return new Discount(p, "2 for " + offer.argument, -discountAmount);
+            return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.ThreeForTwo && (int) quantity >= 3) {
             divisor = 3;
             double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor, 2);
-            return new Discount(p, "3 for 2", -discountAmount);
+            return new Discount(p, divisor + " for 2", -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && (int) quantity >= 5) {
             divisor = 5;
