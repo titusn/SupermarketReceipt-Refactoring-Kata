@@ -67,12 +67,14 @@ public class ShoppingCart {
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && (int) quantity >= 5) {
             divisor = 5;
+            SpecialOffer specialOffer = new FiveForAmount();
             double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor);
-            return new Discount(p, divisor + " for " + offer.argument, -discountAmount);
+            return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
+            SpecialOffer specialOffer = new PercentDiscount();
             double discountAmount = calculateDiscountAmountFromPercentage(quantity, offer.argument, unitPrice);
-            return new Discount(p, offer.argument + "% off", -discountAmount);
+            return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
         }
         return null;
     }
