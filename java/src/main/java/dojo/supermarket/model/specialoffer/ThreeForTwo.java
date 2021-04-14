@@ -11,4 +11,9 @@ public class ThreeForTwo extends SpecialOffer {
     public Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
         return calculateDiscountAmount(quantity, offerAmount, unitPrice, 3, 2);
     }
+
+    @Override
+    public boolean isApplicable(double quantity) {
+        return false;
+    }
 }

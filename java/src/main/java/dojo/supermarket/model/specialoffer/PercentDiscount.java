@@ -11,4 +11,9 @@ package dojo.supermarket.model.specialoffer;
      public Double calculateDiscountAmount(double quantity, double percentage, double unitPrice) {
          return quantity * unitPrice * percentage / 100.0;
     }
-}
+
+     @Override
+     public boolean isApplicable(double quantity) {
+         return false;
+     }
+ }

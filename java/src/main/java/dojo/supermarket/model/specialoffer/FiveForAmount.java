@@ -11,4 +11,9 @@ public class FiveForAmount extends SpecialOffer {
     public Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
         return calculateDiscountAmount(quantity, offerAmount, unitPrice, 5);
     }
+
+    @Override
+    public boolean isApplicable(double quantity) {
+        return false;
+    }
 }
