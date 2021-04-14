@@ -1,8 +1,8 @@
-package dojo.supermarket.model;
+package dojo.supermarket.model.specialoffer;
 
-abstract class SpecialOffer {
-    abstract String generateDescription(Double amount);
-    abstract Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice);
+public abstract class SpecialOffer {
+    public abstract String generateDescription(Double amount);
+    public abstract Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice);
 
     protected double calculateDiscountAmount(double quantity, double offerPrice, double unitPrice, int divisor) {
         return calculateDiscountAmount(quantity, offerPrice, unitPrice, divisor, 1);

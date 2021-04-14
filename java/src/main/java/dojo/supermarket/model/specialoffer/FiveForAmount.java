@@ -1,14 +1,14 @@
-package dojo.supermarket.model;
+package dojo.supermarket.model.specialoffer;
 
 public class FiveForAmount extends SpecialOffer {
 
     @Override
-    String generateDescription(Double amount) {
+    public String generateDescription(Double amount) {
         return "5 for " + amount.toString();
     }
 
     @Override
-    Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
+    public Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
         return calculateDiscountAmount(quantity, offerAmount, unitPrice, 5);
     }
 }

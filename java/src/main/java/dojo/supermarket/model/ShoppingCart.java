@@ -1,5 +1,7 @@
 package dojo.supermarket.model;
 
+import dojo.supermarket.model.specialoffer.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
