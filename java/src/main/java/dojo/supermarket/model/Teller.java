@@ -15,10 +15,6 @@ public class Teller {
         this.catalog = catalog;
     }
 
-    public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        this.offers.put(product, new Offer(offerType, product, argument));
-    }
-
     public void addSpecialOffer(SpecialOffer specialOffer, Product product, double argument) {
         this.offers.put(product, new Offer(specialOffer, product, argument));
     }

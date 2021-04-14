@@ -69,7 +69,7 @@ class SupermarketTest {
     @Test
     void buy_two_get_one_free_but_insufficient_in_basket() {
         theCart.addItem(toothbrush);
-        teller.addSpecialOffer(SpecialOfferType.ThreeForTwo, toothbrush, catalog.getUnitPrice(toothbrush));
+        teller.addSpecialOffer(new ThreeForTwo(), toothbrush, catalog.getUnitPrice(toothbrush));
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
