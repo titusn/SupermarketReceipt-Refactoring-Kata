@@ -14,6 +14,6 @@ package dojo.supermarket.model.specialoffer;
 
      @Override
      public boolean isApplicable(double quantity) {
-         return false;
+         return true;
      }
  }

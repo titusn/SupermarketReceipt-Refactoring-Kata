@@ -2,6 +2,7 @@ package dojo.supermarket.model;
 
 import dojo.supermarket.ReceiptPrinter;
 import dojo.supermarket.model.specialoffer.FiveForAmount;
+import dojo.supermarket.model.specialoffer.PercentDiscount;
 import dojo.supermarket.model.specialoffer.ThreeForTwo;
 import dojo.supermarket.model.specialoffer.TwoForAmount;
 import org.approvaltests.Approvals;
@@ -94,7 +95,7 @@ class SupermarketTest {
     @Test
     void percent_discount() {
         theCart.addItem(rice);
-        teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, rice, 10.0);
+        teller.addSpecialOffer(new PercentDiscount(), rice, 10.0);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
