@@ -6,8 +6,17 @@ import dojo.supermarket.model.specialoffer.PercentDiscount;
 import dojo.supermarket.model.specialoffer.ThreeForTwo;
 import dojo.supermarket.model.specialoffer.TwoForAmount;
 import org.approvaltests.Approvals;
+import org.approvaltests.namer.NamedEnvironment;
+import org.approvaltests.namer.NamerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class SupermarketTest {
     private SupermarketCatalog catalog;
@@ -117,35 +126,23 @@ class SupermarketTest {
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
 
-    @Test
-    void FiveForY_discount() {
-        theCart.addItemQuantity(apples, 5);
-        teller.addSpecialOffer(new FiveForAmount(), apples,6.99);
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
+    @ParameterizedTest
+    @MethodSource("quantityAndSpecialOfferAmount")
+    void FiveForY_discount_withQuantityAndAmount(double quantity, double amount) {
+        try (NamedEnvironment en = NamerFactory.withParameters(quantity)) {
+            theCart.addItemQuantity(apples, quantity);
+            teller.addSpecialOffer(new FiveForAmount(), apples,amount);
+            Receipt receipt = teller.checksOutArticlesFrom(theCart);
+            Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        }
     }
 
-    @Test
-    void FiveForY_discount_withSix() {
-        theCart.addItemQuantity(apples, 6);
-        teller.addSpecialOffer(new FiveForAmount(), apples,5.99);
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-    }
-
-    @Test
-    void FiveForY_discount_withSixteen() {
-        theCart.addItemQuantity(apples, 16);
-        teller.addSpecialOffer(new FiveForAmount(), apples,7.99);
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-    }
-
-    @Test
-    void FiveForY_discount_withFour() {
-        theCart.addItemQuantity(apples, 4);
-        teller.addSpecialOffer(new FiveForAmount(), apples,8.99);
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
+    private static Stream<Arguments> quantityAndSpecialOfferAmount() {
+        return Stream.of(
+                arguments(4, 8.99),
+                arguments(5, 6.99),
+                arguments(6, 5.99),
+                arguments(16, 7.99)
+        );
     }
 }
