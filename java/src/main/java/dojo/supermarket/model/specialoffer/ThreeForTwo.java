@@ -14,6 +14,6 @@ public class ThreeForTwo extends SpecialOffer {
 
     @Override
     public boolean isApplicable(double quantity) {
-        return false;
+        return (int) quantity >= 3;
     }
 }

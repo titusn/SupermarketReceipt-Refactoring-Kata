@@ -58,11 +58,6 @@ public class ShoppingCart {
             double discountAmount = offer.calculateDiscountAmount(quantity, unitPrice);
             return new Discount(p, offer.generateDescription(), -discountAmount);
         }
-        if (offer.offerType == SpecialOfferType.ThreeForTwo && (int) quantity >= 3) {
-            SpecialOffer specialOffer = new ThreeForTwo();
-            double discountAmount = specialOffer.calculateDiscountAmount(quantity, offer.argument, unitPrice);
-            return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
-        }
         if (offer.offerType == SpecialOfferType.FiveForAmount && (int) quantity >= 5) {
             SpecialOffer specialOffer = new FiveForAmount();
             double discountAmount = specialOffer.calculateDiscountAmount(quantity, offer.argument, unitPrice);
