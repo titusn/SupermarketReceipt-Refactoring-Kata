@@ -27,4 +27,8 @@ public class Offer {
     public String generateDescription() {
         return specialOffer.generateDescription(argument);
     }
+
+    public double calculateDiscountAmount(double quantity, double unitPrice) {
+        return specialOffer.calculateDiscountAmount(quantity, argument, unitPrice);
+    }
 }
