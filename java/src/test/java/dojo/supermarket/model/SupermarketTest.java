@@ -1,6 +1,7 @@
 package dojo.supermarket.model;
 
 import dojo.supermarket.ReceiptPrinter;
+import dojo.supermarket.model.specialoffer.FiveForAmount;
 import dojo.supermarket.model.specialoffer.ThreeForTwo;
 import dojo.supermarket.model.specialoffer.TwoForAmount;
 import org.approvaltests.Approvals;
@@ -118,7 +119,7 @@ class SupermarketTest {
     @Test
     void FiveForY_discount() {
         theCart.addItemQuantity(apples, 5);
-        teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples,6.99);
+        teller.addSpecialOffer(new FiveForAmount(), apples,6.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
@@ -126,7 +127,7 @@ class SupermarketTest {
     @Test
     void FiveForY_discount_withSix() {
         theCart.addItemQuantity(apples, 6);
-        teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples,5.99);
+        teller.addSpecialOffer(new FiveForAmount(), apples,5.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
@@ -134,7 +135,7 @@ class SupermarketTest {
     @Test
     void FiveForY_discount_withSixteen() {
         theCart.addItemQuantity(apples, 16);
-        teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples,7.99);
+        teller.addSpecialOffer(new FiveForAmount(), apples,7.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
@@ -142,7 +143,7 @@ class SupermarketTest {
     @Test
     void FiveForY_discount_withFour() {
         theCart.addItemQuantity(apples, 4);
-        teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples,8.99);
+        teller.addSpecialOffer(new FiveForAmount(), apples,8.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
