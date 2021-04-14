@@ -1,6 +1,7 @@
 package dojo.supermarket.model;
 
 import dojo.supermarket.ReceiptPrinter;
+import dojo.supermarket.model.specialoffer.TwoForAmount;
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -100,7 +101,7 @@ public class SupermarketTest {
     public void xForY_discount() {
         theCart.addItem(cherryTomatoes);
         theCart.addItem(cherryTomatoes);
-        teller.addSpecialOffer(SpecialOfferType.TwoForAmount, cherryTomatoes,.99);
+        teller.addSpecialOffer(new TwoForAmount(), cherryTomatoes,.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
@@ -108,7 +109,7 @@ public class SupermarketTest {
     @Test
     public void xForY_discount_with_insufficient_in_basket() {
         theCart.addItem(cherryTomatoes);
-        teller.addSpecialOffer(SpecialOfferType.TwoForAmount, cherryTomatoes,.99);
+        teller.addSpecialOffer(new TwoForAmount(), cherryTomatoes,.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }

@@ -1,7 +1,6 @@
 package dojo.supermarket.model;
 
 import dojo.supermarket.model.specialoffer.SpecialOffer;
-import dojo.supermarket.model.specialoffer.TwoForAmount;
 
 public class Offer {
     SpecialOfferType offerType;
@@ -11,9 +10,13 @@ public class Offer {
 
     public Offer(SpecialOfferType offerType, Product product, double argument) {
         this.offerType = offerType;
-        this.specialOffer = new TwoForAmount();
         this.argument = argument;
         this.product = product;
+    }
+
+    public Offer(SpecialOffer specialOffer, Product product, double argument) {
+        this(SpecialOfferType.TwoForAmount, product, argument);
+        this.specialOffer = specialOffer;
     }
 
     Product getProduct() {

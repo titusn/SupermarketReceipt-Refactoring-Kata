@@ -1,5 +1,7 @@
 package dojo.supermarket.model;
 
+import dojo.supermarket.model.specialoffer.SpecialOffer;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,10 @@ public class Teller {
 
     public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
         this.offers.put(product, new Offer(offerType, product, argument));
+    }
+
+    public void addSpecialOffer(SpecialOffer specialOffer, Product product, double argument) {
+        this.offers.put(product, new Offer(specialOffer, product, argument));
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
