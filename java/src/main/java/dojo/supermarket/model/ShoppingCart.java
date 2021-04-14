@@ -52,7 +52,6 @@ public class ShoppingCart {
         double quantity = productQuantities.get(p);
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
-        int divisor;
         if (offer.offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2) {
             SpecialOffer specialOffer = new TwoForAmount();
             double discountAmount = specialOffer.calculateDiscountAmount(quantity, offer.argument, unitPrice);
@@ -64,9 +63,8 @@ public class ShoppingCart {
             return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.FiveForAmount && (int) quantity >= 5) {
-            divisor = 5;
             SpecialOffer specialOffer = new FiveForAmount();
-            double discountAmount = calculateDiscountAmount(quantity, offer.argument, unitPrice, divisor);
+            double discountAmount = specialOffer.calculateDiscountAmount(quantity, offer.argument, unitPrice);
             return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
@@ -79,20 +77,5 @@ public class ShoppingCart {
 
     private double calculateDiscountAmountFromPercentage(double quantity, double percentage, double unitPrice) {
         return quantity * unitPrice * percentage / 100.0;
-    }
-
-    private double calculateDiscountAmount(double quantity, double offerPrice, double unitPrice, int divisor) {
-        return calculateDiscountAmount(quantity, offerPrice, unitPrice, divisor, 1);
-    }
-
-    private double calculateDiscountAmount(double quantity, double offerPrice, double unitPrice, int divisor, int multiplier) {
-        double subtotalDiscounted = offerPrice * getNumberOfTimesOfferApplies((int) quantity, divisor) * multiplier;
-        double subtotalAboveDiscount = ((int) quantity % divisor) * unitPrice;
-        double total = subtotalDiscounted + subtotalAboveDiscount;
-        return unitPrice * quantity - total;
-    }
-
-    private int getNumberOfTimesOfferApplies(int quantityAsInt, int divisor) {
-        return quantityAsInt / divisor;
     }
 }
