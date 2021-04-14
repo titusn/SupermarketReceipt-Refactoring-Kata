@@ -15,4 +15,7 @@ public class Offer {
         return this.product;
     }
 
+    public boolean isApplicable(double quantity) {
+        return offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2;
+    }
 }

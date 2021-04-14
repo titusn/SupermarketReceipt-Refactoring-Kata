@@ -54,7 +54,7 @@ public class ShoppingCart {
         double quantity = productQuantities.get(p);
         Offer offer = offers.get(p);
         double unitPrice = catalog.getUnitPrice(p);
-        if (offer.offerType == SpecialOfferType.TwoForAmount && (int) quantity >= 2) {
+        if (offer.isApplicable(quantity)) {
             SpecialOffer specialOffer = new TwoForAmount();
             double discountAmount = specialOffer.calculateDiscountAmount(quantity, offer.argument, unitPrice);
             return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
