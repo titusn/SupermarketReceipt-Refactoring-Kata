@@ -24,7 +24,7 @@ public class Offer {
         return offerType == SpecialOfferType.TwoForAmount && specialOffer.isApplicable(quantity);
     }
 
-    public String generateDescription(double argument) {
+    public String generateDescription() {
         return specialOffer.generateDescription(argument);
     }
 }
