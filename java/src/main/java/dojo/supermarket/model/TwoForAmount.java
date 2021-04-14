@@ -11,5 +11,4 @@ class TwoForAmount extends SpecialOffer{
     Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
         return calculateDiscountAmount(quantity, offerAmount, unitPrice, 2);
     }
-
 }
