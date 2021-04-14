@@ -69,13 +69,9 @@ public class ShoppingCart {
         }
         if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
             SpecialOffer specialOffer = new PercentDiscount();
-            double discountAmount = calculateDiscountAmountFromPercentage(quantity, offer.argument, unitPrice);
+            double discountAmount = specialOffer.calculateDiscountAmount(quantity, offer.argument, unitPrice);
             return new Discount(p, specialOffer.generateDescription(offer.argument), -discountAmount);
         }
         return null;
-    }
-
-    private double calculateDiscountAmountFromPercentage(double quantity, double percentage, double unitPrice) {
-        return quantity * unitPrice * percentage / 100.0;
     }
 }

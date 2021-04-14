@@ -1,13 +1,14 @@
 package dojo.supermarket.model;
 
-public class PercentDiscount extends SpecialOffer {
-    @Override
-    public String generateDescription(Double amount) {
-        return amount.toString() + "% off";
-    }
+ class PercentDiscount extends SpecialOffer {
 
-    @Override
-    public Double calculateDiscountAmount(double quantity, double offerAmount, double unitPrice) {
-        return null;
+     @Override
+     String generateDescription(Double amount) {
+        return amount.toString() + "% off";
+     }
+
+     @Override
+     Double calculateDiscountAmount(double quantity, double percentage, double unitPrice) {
+         return quantity * unitPrice * percentage / 100.0;
     }
 }
